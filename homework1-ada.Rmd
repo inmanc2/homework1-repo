@@ -1,0 +1,220 @@
+---
+title: "inman-callen-ada-homework-1"
+author: "Callen Inman"
+date: "3/2/2021"
+output: html_document
+---
+
+
+```{r}
+f <- file.choose("C:\\Users\\inman\\OneDrive\\Downloads\\darwin.txt")
+
+
+d <- read.delim(f, header = TRUE, stringsAsFactors = FALSE)
+
+
+str(d)
+
+nrow(d)
+
+library(dplyr)
+
+d$ID <- 1:nrow(d)
+
+# calculating the number of paragraphs in the chapter
+
+head(d)
+
+d[34,]
+
+s <- d[34,]
+
+print(s)
+# print paragraph 34
+
+
+
+```
+
+```{r}
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                library(stringr)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              str <- "The fact, as we have seen, that all past and present organic beings can be arranged within a few great classes, in groups subordinate to groups, and with the extinct groups often falling in between the recent groups, is intelligible on the theory of natural selection with its contingencies of extinction and divergence of character. On these same principles we see how it is that the mutual affinities of the forms within each class are so complex and circuitous. We see why certain characters are far more serviceable than others for classification; why adaptive characters, though of paramount importance to the beings, are of hardly any importance in classification; why characters derived from rudimentary parts, though of no service to the beings, are often of high classificatory value; and why embryological characters are often the most valuable of all. The real affinities of all organic beings, in contradistinction to their adaptive resemblances, are due to inheritance or community of descent. The Natural System is a genealogical arrangement, with the acquired grades of difference, marked by the terms, varieties, species, genera, families, etc.; and we have to discover the lines of descent by the most permanent characters, whatever they may be, and of however slight vital importance."
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      library(dplyr)                                                                                                 
+
+df <- str_split(gsub("[^[:alnum:] ]", "", s), " +")[[1]]
+
+# split into chunks
+
+split <- as.vector(unlist(df))
+
+# convert list to vector
+
+head(split)
+
+# print vector
+
+length(unique(str_split(split, " ")))
+
+# number of unique words
+
+names(table(split))[as.vector(table(split))==max(table(split))]
+
+# most frequent word
+
+table(split)
+
+# According to the table, six words appear five or more times
+```
+
+Note that the `echo = FALSE` parameter ws added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+
+# make a vector for the final paragraph
+
+final_quote <- d[56,]
+
+final_quote
+
+# split final paragraph into chunks
+
+split_quote <- str_split(gsub("[^[:alnum:] ]", "", final_quote), " +")[[1]]
+
+as.vector(unlist(split_quote))
+
+print(split_quote)
+
+# extract very third word and create a new vector 
+every_third <- split_quote[seq(1, length(split_quote), 3)]
+
+print(every_third)
+
+sort(every_third, decreasing=TRUE)
+
+# print vector in reverse alphabetical order
+print(sort(every_third, decreasing = TRUE))
+```
+
+```{r}
+# Challenge 2
+
+# vector creation
+
+t <- c(35, 88, 42, 84, 81, 30)
+
+city <- c("Beijing", "Lagos", "Paris", "Rio de Janeiro", "San Juan", "Toronto")
+
+# assigning names to values
+
+names(t) <- city
+
+# temperature of first three cities in the list
+
+t[1:3]
+
+# temperature of Paris
+
+t[["Paris"]]
+
+# temperature of San Juan
+
+t[["San Juan"]]
+
+
+```
+```{r}
+
+# building a matrix that fits the specifications
+
+m1 <- matrix(
+  
+  data = c(159:0),
+  
+  nrow = 8,
+  
+  ncol = 20,
+  
+  byrow = FALSE
+)
+
+m1
+
+# extracting element from row 5, column 2
+
+m1[5, 2]
+
+# extracting contents of rows 5 to 7
+
+m1[5:7,]
+
+# extracting the contents of row 3, column 4 to row 6, column 9 
+
+m2 <- m1[3:6, 4:9]
+
+m2
+
+# class of the variable 
+
+class(m2)
+
+# mode of the variable
+
+mode(m2)
+
+```
+```{r}
+# Challenge 4
+
+# only even numbers
+
+even <- seq(2, 800, 2)
+
+# making an array
+
+a1 <- array(data = even, dim = c(5, 5, 4, 4))
+
+a <- sort(a1, decreasing = TRUE)
+
+# subsetting
+
+a[c(1, 1, 1, 2)]
+
+a[c(2, 3, 2)]
+
+a[c(1:5, 1:5, 3, 3)]
+
+
+```
+```{r}
+
+primates <- list("Order:Primates", list("Suborder: Strepsirhini", list("Infraorder: Lorisiformes", list("Superfamily Lorisoidea", c("Lorisidae", "Galagidae")),"Infraorder: Lemuriformes", list("Superfamily Lemuroidea", c("Cheirogaleidae", "Lepilemuridae", "Indriidae", "Lemuridae", "Daubentoniidae"))), "Suborder: Haplorhini", list("Infraorder: Tarsiiformes", list("Superfamily Tarsioidea", c("Tarsiidae")), "Infraorder: Simiiformes", list("Parvorder: Platyrrhini", list("Superfamily Ceboidea", c("Cebidae", "Atelidae", "Pitheciidae")), "Parvorder: Catarrhini", list("Superfamily: Hominoidea", c("Hylobatidae", "Hominidae"), "Superfamily: Cercopithecoidea", c("Cercopithecidae"))))))
+
+primates
+
+str(primates)
+
+
+# extracting "Parvorder: Platyrrhini"
+
+platyrrhines <- primates[[2]][[4]][[4]][2]
+
+str(platyrrhines)
+
+
+# class of "platyrrhines"
+
+class(platyrrhines)
+
+# mode of "platyrrhines"
+
+mode(platyrrhines)
+
+# extracting tarsiers
+
+primates[[2]][[4]][[2]][[2]]
+
+
+```
+
